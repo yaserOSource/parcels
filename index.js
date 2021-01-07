@@ -11,6 +11,14 @@ const height = 10;
 const depth = 10;
 const streetSize = new THREE.Vector3(10, 1, 1000);
 
+const rarityColors = {
+  common: [0xCACACA, 0x7B7B7B],
+  uncommon: [0x80cf3f, 0x3a7913],
+  rare: [0x2fd5e8, 0x1258a2],
+  epic: [0xbd3ffa, 0x460d7f],
+  legendary: [0xfdae53, 0xff7605],
+};
+
 const zeroVector = new THREE.Vector3(0, 0, 0);
 const zeroQuaternion = new THREE.Quaternion();
 const oneVector = new THREE.Vector3(1, 1, 1);
@@ -36,6 +44,7 @@ app.object.add(rootScene);
       // objects: [],
       room: name,
       extents,
+      color: rarityColors[rarity][0],
     };
     const s = JSON.stringify(o);
     const b = new Blob([s], {
