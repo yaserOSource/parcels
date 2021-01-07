@@ -38,8 +38,10 @@ app.object.add(rootScene);
       extents,
     };
     const s = JSON.stringify(o);
-    const b = new Blob([s], 'application/json');
-    const u = URL.createObjectURL(b);
+    const b = new Blob([s], {
+      type: 'application/json',
+    });
+    const u = URL.createObjectURL(b) + '/parcel.url';
     world.addObject(u, null, new THREE.Vector3(), new THREE.Quaternion());
   }
 })();
