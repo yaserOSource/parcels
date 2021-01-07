@@ -36,7 +36,7 @@ const rootScene = new THREE.Object3D();
 app.object.add(rootScene);
 
 (async () => {
-  const res = await fetch('./parcels/parcels.json');
+  const res = await fetch('https://webaverse.github.io/parcels/parcels.json');
   const parcelsJson = await res.json();
   for (const parcel of parcelsJson) {
     const {name, rarity, extents} = parcel;
