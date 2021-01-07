@@ -55,11 +55,11 @@ app.object.add(rootScene);
   }
 })();
 
-let lastUpdateTime = Date.now();
+/* let lastUpdateTime = Date.now();
 renderer.setAnimationLoop(() => {
   const now = Date.now();
 
   
 
   lastUpdateTime = now;
-});
+}); */
