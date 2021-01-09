@@ -1,6 +1,4 @@
 import * as THREE from 'three';
-import {GLTFLoader} from 'GLTFLoader';
-import {BufferGeometryUtils} from 'BufferGeometryUtils';
 import {renderer, camera, runtime, world, universe, physics, ui, rig, app, appManager, popovers} from 'app';
 
 const rootScene = new THREE.Object3D();
