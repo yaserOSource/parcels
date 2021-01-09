@@ -51,7 +51,7 @@ app.object.add(rootScene);
       type: 'application/json',
     });
     const u = URL.createObjectURL(b) + '/parcel.url';
-    world.addObject(u, null, new THREE.Vector3(), new THREE.Quaternion());
+    world.addStaticObject(u, null, new THREE.Vector3(), new THREE.Quaternion());
   }
 })();
 
