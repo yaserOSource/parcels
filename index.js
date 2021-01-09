@@ -1,19 +1,23 @@
 import * as THREE from 'three';
 import {renderer, camera, runtime, world, universe, physics, ui, rig, app, appManager, popovers} from 'app';
 
-const rootScene = new THREE.Object3D();
-app.object.add(rootScene);
-
-const numParcels = 7;
-
 (async () => {
-  const promises = [];
-  for (let i = 1; i <= numParcels; i++) {
-    const p = (async () => {
-      const u = `https://webaverse.github.io/parcels/parcels/${i}.json`;
-      await world.addStaticObject(u, null, new THREE.Vector3(), new THREE.Quaternion());
-    })();
-    promises.push(p);
+  const res = await fetch(`https://webaverse.github.io/parcels/parcels.json`);
+  const parcelsJson = await res.json();
+  for (const parcel of parcelsJson) {
+    const {name, rarity, extents} = parcel;
+    const o = {
+      start_url: `https://webaverse.github.io/parcels/parcel.json`,
+      room: name,
+      extents,
+      rarity,
+    };
+    const s = JSON.stringify(o);
+    const b = new Blob([s], {
+      type: 'application/json',
+    });
+    const u = URL.createObjectURL(b) + '/parcel.url';
+    world.addStaticObject(u, null, new THREE.Vector3(), new THREE.Quaternion())
+      .catch(console.warn);
   }
-  await Promise.all(promises);
 })();
