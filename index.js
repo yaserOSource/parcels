@@ -8,7 +8,7 @@ import {renderer, camera, runtime, world, universe, physics, ui, rig, app, appMa
     const {name, rarity, extents} = parcel;
     const o = {
       start_url: `https://webaverse.github.io/parcels/parcel.json`,
-      room: name,
+      room: name.replace(/ /g, '-'),
       extents,
       rarity,
     };
