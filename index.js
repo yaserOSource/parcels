@@ -6,13 +6,13 @@ const landHost = `https://land.webaverse.com`;
 const storageHost = `https://ipfs.exokit.org`;
 
 (async () => {
-  const res = await fetch(`./parcels/parcels.json`);
+  const res = await fetch(`https://webaverse.github.io/parcels/parcels.json`);
   const parcelsJson = await res.json();
   for (const parcel of parcelsJson) {
     (async () => {
       const {name, rarity, extents} = parcel;
       const o = {
-        start_url: `./parcels/parcel.json`,
+        start_url: `https://webaverse.github.io/parcels/parcel.json`,
         room: name.replace(/ /g, '-'),
         extents,
         rarity,
