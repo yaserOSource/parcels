@@ -1,5 +1,6 @@
 [
 {
+  "id": 1,
   "name": "1 avaer stacks",
   "rarity": "common",
   "extents": [
@@ -7,6 +8,7 @@
     [-6, 4, -6]
   ]
 }, {
+  "id": 2,
   "name": "2 avaer stacks",
   "rarity": "uncommon",
   "extents": [
@@ -14,6 +16,7 @@
     [-6, 4, -10]
   ]
 }, {
+  "id": 3,
   "name": "3 avaer stacks",
   "rarity": "rare",
   "extents": [
@@ -21,6 +24,7 @@
     [-6, 4, -14]
   ]
 }, {
+  "id": 4,
   "name": "4 avaer stacks",
   "rarity": "epic",
   "extents": [
@@ -28,6 +32,7 @@
     [-6, 4, -18]
   ]
 }, {
+  "id": 5,
   "name": "5 avaer stacks",
   "rarity": "legendary",
   "extents": [
@@ -35,6 +40,7 @@
     [-6, 4, -22]
   ]
 }, {
+  "id": 6,
   "name": "6 avaer stacks",
   "rarity": "legendary",
   "extents": [
@@ -42,6 +48,7 @@
     [-6, 4, -26]
   ]
 }, {
+  "id": 7,
   "name": "7 avaer stacks",
   "rarity": "legendary",
   "extents": [
