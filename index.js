@@ -31,6 +31,8 @@ const storageHost = `https://ipfs.exokit.org`;
         const id = parseInt(contentId, 10);
         if (id > 0) {
           return id;
+        } else if (world.isValidContentId(contentId)) {
+          return contentId;
         } else {
           return null;
         }
