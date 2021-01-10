@@ -51,6 +51,7 @@ const storageHost = `https://ipfs.exokit.org`;
           new THREE.Vector3().fromArray(object.json.extents[1]),
         );
         const center = box.getCenter(new THREE.Vector3());
+        center.y = 0;
         const object2 = world.addStaticObject(contentId, null, center, new THREE.Quaternion());
       }
     })().catch(console.warn);
