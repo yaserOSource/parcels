@@ -56,6 +56,28 @@ const storageHost = `https://ipfs.exokit.org`;
         center.y = 0;
         const object2 = world.addStaticObject(id, null, center, new THREE.Quaternion());
       }
+      
+      const box = new THREE.Box3(
+        new THREE.Vector3().fromArray(extents[0]),
+        new THREE.Vector3().fromArray(extents[1]),
+      );
+      const popoverWidth = 600;
+      const popoverHeight = 200;
+      const popoverTextMesh = (() => {
+        const textMesh = ui.makeTextMesh(name, undefined, 0.5, 'center', 'middle');
+        textMesh.position.z = 0.1;
+        textMesh.scale.x = popoverHeight / popoverWidth;
+        textMesh.color = 0xFFFFFF;
+        return textMesh;
+      })();
+      const popoverTarget = new THREE.Object3D();
+      box.getCenter(popoverTarget.position)
+        .add(new THREE.Vector3(0, 0.5, 0));
+      const popoverMesh = popovers.addPopover(popoverTextMesh, {
+        width: popoverWidth,
+        height: popoverHeight,
+        target: popoverTarget,
+      });
     })().catch(console.warn);
   }
 })();
