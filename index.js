@@ -5,7 +5,8 @@ const tokensHost = `https://tokens.webaverse.com`;
 const landHost = `https://land.webaverse.com`;
 
 (async () => {
-  const parcelsJson = await universe.getParcels();
+  let parcelsJson = await universe.getParcels();
+  parcelsJson = parcelsJson.slice(0, 1);
   for (const parcel of parcelsJson) {
     (async () => {
       const res = await fetch(`${landHost}/${parcel.id}`);
