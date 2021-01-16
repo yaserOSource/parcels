@@ -39,8 +39,8 @@ const storageHost = `https://ipfs.exokit.org`;
       const o = {
         contentId: id || `https://webaverse.github.io/parcels/parcel.json`,
         room: name.replace(/ /g, '-'),
-        extents,
         rarity,
+        extents,
       };
       const s = JSON.stringify(o);
       const b = new Blob([s], {
