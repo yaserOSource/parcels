@@ -6,7 +6,7 @@ const landHost = `https://land.webaverse.com`;
 const storageHost = `https://ipfs.exokit.org`;
 
 (async () => {
-  const res = await fetch(`https://webaverse.github.io/parcels/parcels.json`);
+  const res = await fetch(`https://land.webaverse.com/1-100`);
   const parcelsJson = await res.json();
   for (const parcel of parcelsJson) {
     (async () => {
@@ -33,7 +33,9 @@ const storageHost = `https://ipfs.exokit.org`;
         }
       })();
 
-      const {name, rarity, extents} = parcel;
+      const {name} = parcel;
+      const {rarity} = parcel.properties;
+      const extents = JSON.parse(parcel.properties.extents);
       const o = {
         contentId: id || `https://webaverse.github.io/parcels/parcel.json`,
         room: name.replace(/ /g, '-'),
