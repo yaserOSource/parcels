@@ -3,7 +3,6 @@ import {renderer, camera, runtime, world, universe, physics, ui, rig, app, appMa
 
 const tokensHost = `https://tokens.webaverse.com`;
 const landHost = `https://land.webaverse.com`;
-const storageHost = `https://ipfs.exokit.org`;
 
 (async () => {
   const parcelsJson = await universe.getParcels();
