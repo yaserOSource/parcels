@@ -6,8 +6,7 @@ const landHost = `https://land.webaverse.com`;
 const storageHost = `https://ipfs.exokit.org`;
 
 (async () => {
-  const res = await fetch(`https://land.webaverse.com/1-100`);
-  const parcelsJson = await res.json();
+  const parcelsJson = await universe.getParcels();
   for (const parcel of parcelsJson) {
     (async () => {
       const res = await fetch(`${landHost}/${parcel.id}`);
