@@ -61,6 +61,24 @@ const landHost = `https://land.webaverse.com`;
         box.min.clone().sub(center),
         box.max.clone().sub(center)
       );
+      
+      const popoverWidth = 600;
+      const popoverHeight = 200;
+      const popoverTextMesh = (() => {
+        const textMesh = ui.makeTextMesh(name, undefined, 0.5, 'center', 'middle');
+        textMesh.position.z = 0.1;
+        textMesh.scale.x = popoverHeight / popoverWidth;
+        textMesh.color = 0xFFFFFF;
+        return textMesh;
+      })();
+      const popoverTarget = new THREE.Object3D();
+      popoverTarget.position.copy(center)
+        .add(new THREE.Vector3(0, 0.5, 0));
+      const popoverMesh = popovers.addPopover(popoverTextMesh, {
+        width: popoverWidth,
+        height: popoverHeight,
+        target: popoverTarget,
+      });
 
       const o = {
         contentId: id || `./parcels/parcel.json`,
