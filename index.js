@@ -91,11 +91,11 @@ const landHost = `https://land.webaverse.com`;
         type: 'application/json',
       });
       const parcelUrl = URL.createObjectURL(b) + '/parcel.url';
-      const bakeUrl = `https://bake.exokit.org/model.glb?u=${u}&e=${JSON.stringify([centerBox.min.toArray(), centerBox.max.toArray()])}`;
+      const bakeUrl = u && `https://bake.exokit.org/model.glb?u=${u}&e=${JSON.stringify([centerBox.min.toArray(), centerBox.max.toArray()])}`;
 
       await Promise.all([
-        await world.addStaticObject(parcelUrl, null, new THREE.Vector3(), new THREE.Quaternion()),
-        await world.addStaticObject(bakeUrl, null, new THREE.Vector3(center.x, box.min.y, center.z), new THREE.Quaternion()),
+        world.addStaticObject(parcelUrl, null, new THREE.Vector3(), new THREE.Quaternion()),
+        bakeUrl ? world.addStaticObject(bakeUrl, null, new THREE.Vector3(center.x, box.min.y, center.z), new THREE.Quaternion()) : Promise.resolve(),
       ]);
     })();
   }
