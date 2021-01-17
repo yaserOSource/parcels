@@ -39,7 +39,7 @@ const landHost = `https://land.webaverse.com`;
           const res = await fetch(`https://tokens.webaverse.com/${id}`);
           const j = await res.json();
           const {properties: {ext, hash, name}} = j;
-          console.warn(j);
+          // console.warn(j);
           return `https://ipfs.exokit.org/${hash}/${name}.${ext}`;
         } else if (typeof id === 'string') {
           return id;
@@ -47,7 +47,7 @@ const landHost = `https://land.webaverse.com`;
           return null;
         }
       })();
-      console.log('loading', parcel, u);
+      // console.log('loading', parcel, id, u);
       
       const {name} = parcel;
       const {rarity} = parcel.properties;
