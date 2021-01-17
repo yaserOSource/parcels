@@ -49,6 +49,8 @@ const landHost = `https://land.webaverse.com`;
       })();
       console.log('loading', parcel, u);
       
+      const {name} = parcel;
+      const {rarity} = parcel.properties;
       const extents = JSON.parse(parcel.properties.extents);
       const box = new THREE.Box3(
         new THREE.Vector3().fromArray(extents[0]),
@@ -59,16 +61,24 @@ const landHost = `https://land.webaverse.com`;
         box.min.clone().sub(center),
         box.max.clone().sub(center)
       );
-      
-      const bakeUrl = `https://bake.exokit.org/?u=${u}&e=${JSON.stringify([centerBox.min.toArray(), centerBox.max.toArray()])}`;
-      
-      let o = await new Promise((accept, reject) => {
-        gltfLoader.load(bakeUrl, accept, function onprogress() {}, reject);
-      });
-      o = o.scene;
-      o.position.set(center.x, box.min.y, center.z);
 
-      scene.add(o);
+      const o = {
+        contentId: id || `./parcels/parcel.json`,
+        room: name.replace(/ /g, '-'),
+        rarity,
+        extents,
+      };
+      const s = JSON.stringify(o);
+      const b = new Blob([s], {
+        type: 'application/json',
+      });
+      const parcelUrl = URL.createObjectURL(b) + '/parcel.url';
+      const bakeUrl = `https://bake.exokit.org/model.glb?u=${u}&e=${JSON.stringify([centerBox.min.toArray(), centerBox.max.toArray()])}`;
+
+      await Promise.all([
+        await world.addStaticObject(parcelUrl, null, new THREE.Vector3(), new THREE.Quaternion()),
+        await world.addStaticObject(bakeUrl, null, new THREE.Vector3(center.x, box.min.y, center.z), new THREE.Quaternion()),
+      ]);
     })();
   }
 })();
