@@ -9,7 +9,7 @@ const landHost = `https://land.webaverse.com`;
 
 (async () => {
   let parcelsJson = await universe.getParcels();
-  parcelsJson = parcelsJson.slice(0, 1);
+  // parcelsJson = parcelsJson.slice(0, 1);
   for (const parcel of parcelsJson) {
     (async () => {
       const res = await fetch(`${landHost}/${parcel.id}`);
