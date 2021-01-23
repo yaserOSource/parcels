@@ -1,11 +1,10 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'GLTFLoader';
-import {renderer, camera, runtime, world, universe, physics, ui, rig, app, scene, appManager, popovers, crypto} from 'app';
+import {renderer, camera, runtime, world, universe, physics, ui, rig, app, scene, appManager, popovers, crypto, constants} from 'app';
 
 const gltfLoader = new GLTFLoader();
 
-const tokensHost = `https://tokens.webaverse.com`;
-const landHost = `https://land.webaverse.com`;
+const {tokensHost, landHost} = constants;
 
 (async () => {
   let parcelsJson = await universe.getParcels();
