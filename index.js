@@ -12,7 +12,8 @@ const landHost = `https://land.webaverse.com`;
   // parcelsJson = parcelsJson.slice(0, 1);
   for (const parcel of parcelsJson) {
     (async () => {
-      const res = await fetch(`${landHost}/${parcel.id}`);
+      const landUrl = `${landHost}/${parcel.id}`;
+      const res = await fetch(landUrl);
       const land = await res.json();
       const {hash: contentId} = land.properties;
       
