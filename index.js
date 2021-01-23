@@ -81,7 +81,7 @@ const landHost = `https://land.webaverse.com`;
       });
 
       const o = {
-        contentId: id || `./parcels/parcel.json`,
+        contentId: id || `https://webaverse.github.io/parcels/parcel.scn`,
         room: name.replace(/ /g, '-'),
         rarity,
         extents,
