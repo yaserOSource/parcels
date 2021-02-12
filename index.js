@@ -65,7 +65,7 @@ const {tokensHost, landHost} = constants;
       const popoverWidth = 600;
       const popoverHeight = 200;
       const popoverTextMesh = (() => {
-        const textMesh = ui.makeTextMesh(name, undefined, 0.5, 'center', 'middle');
+        const textMesh = ui.makeTextMesh(name + '\n[E] to enter', undefined, 0.5, 'center', 'middle');
         textMesh.position.z = 0.1;
         textMesh.scale.x = popoverHeight / popoverWidth;
         textMesh.color = 0xFFFFFF;
