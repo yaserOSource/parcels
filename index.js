@@ -3,11 +3,11 @@ import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUti
 // import {GLTFLoader} from 'GLTFLoader';
 // import {renderer, camera, runtime, world, universe, physics, ui, rig, app, scene, appManager, popovers, crypto, constants} from 'app';
 import metaversefile from 'metaversefile';
-const {useFrame, useLocalPlayer, useUi} = metaversefile;
+const {useFrame, useLocalPlayer/* , useUi*/} = metaversefile;
 
 const localBox = new THREE.Box3();
 
-const ui = useUi();
+// const ui = useUi();
 
 const landHost = `https://mainnetsidechain-land.webaverse.com`;
 const rarityColors = {
@@ -496,7 +496,7 @@ export default () => {
           box.max.clone().sub(center)
         );
         
-        const popoverWidth = 600;
+        /* const popoverWidth = 600;
         const popoverHeight = 200;
         const popoverTextMesh = (() => {
           const textMesh = ui.makeTextMesh(name + '\n[E] to enter', undefined, 0.5, 'center', 'middle');
@@ -512,7 +512,7 @@ export default () => {
           width: popoverWidth,
           height: popoverHeight,
           target: popoverTarget,
-        });
+        }); */
 
         /* const o = {
           contentId: id || `https://webaverse.github.io/parcels/parcel.scn`,
