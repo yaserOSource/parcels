@@ -251,88 +251,6 @@ const portalMaterial = new THREE.ShaderMaterial({
   // polygonOffsetUnits: 1,
 });
 const makePortalMesh = json => {
-  /* const geometry = new THREE.CircleBufferGeometry(1, 32)
-    .applyMatrix4(new THREE.Matrix4().makeScale(0.5, 1, 1))
-    .applyMatrix4(new THREE.Matrix4().makeTranslation(0, 1, 0));
-  const material = new THREE.ShaderMaterial({
-    uniforms: {
-      iTime: {value: 0, needsUpdate: true},
-    },
-    vertexShader: `\
-      varying vec2 uvs;
-      void main() {
-        uvs = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-      }
-    `,
-    fragmentShader: `\
-      #define PI 3.1415926535897932384626433832795
-
-      uniform float iTime;
-      varying vec2 uvs;
-
-      const vec3 c = vec3(${new THREE.Color(0x1565c0).toArray().join(', ')});
-
-      void main() {
-        vec2 uv = uvs;
-
-        const vec3 c = vec3(${new THREE.Color(0x29b6f6).toArray().join(', ')});
-
-        vec2 distanceVector = abs(uv - 0.5)*2.;
-        float a = pow(length(distanceVector), 5.);
-        vec2 normalizedDistanceVector = normalize(distanceVector);
-        float angle = atan(normalizedDistanceVector.y, normalizedDistanceVector.x) + iTime*PI*2.;
-        float skirt = pow(sin(angle*50.) * cos(angle*20.), 5.) * 0.2;
-        a += skirt;
-        gl_FragColor = vec4(c, a);
-      }
-    `,
-    side: THREE.DoubleSide,
-    transparent: true,
-  });
-  const portalMesh = new THREE.Mesh(geometry, material);
-  portalMesh.update = () => {
-    const portalRate = 30000;
-    portalMesh.material.uniforms.iTime.value = (Date.now()/portalRate) % 1;
-    portalMesh.material.uniforms.iTime.needsUpdate = true;
-  };
-  portalMesh.destroy = () => {
-    appManager.destroyApp(appId);
-  };
-  // portalMesh.position.y = 1;
-  // scene.add(portalMesh);
-
-  const textMesh = makeTextMesh(href.slice(0, 80), undefined, 0.2, 'center', 'middle');
-  textMesh.position.y = 2.2;
-  textMesh.color = 0xCCCCCC;
-  portalMesh.add(textMesh);
-
-  let inRangeStart = null;
-
-  const appId = appManager.getNextAppId();
-  const app = appManager.createApp(appId);
-  appManager.setAnimationLoop(appId, () => {
-    portalMesh.update();
-
-    const distance = rigManager.localRig.inputs.hmd.position.distanceTo(
-      localVector.copy(portalMesh.position)
-        .add(localVector2.set(0, 1, 0).applyQuaternion(portalMesh.quaternion))
-    );
-    if (distance < 1) {
-      const now = Date.now();
-      if (inRangeStart !== null) {
-        const timeDiff = now - inRangeStart;
-        if (timeDiff >= 2000) {
-          renderer.setAnimationLoop(null);
-          window.location.href = href;
-        }
-      } else {
-        inRangeStart = now;
-      }
-    } else {
-      inRangeStart = null;
-    }
-  }); */
 
   const extents = JSON.parse(json.properties.extents);
   const center = new THREE.Vector3((extents[1][0] + extents[0][0]) / 2, (extents[1][1] + extents[0][1]) / 2, (extents[1][2] + extents[0][2]) / 2);
@@ -352,40 +270,6 @@ const makePortalMesh = json => {
   planeGeometry.setAttribute('bar', new THREE.BufferAttribute(new Float32Array(planeGeometry.attributes.position.array.length/3), 1));
   geometries.push(planeGeometry);
 
-  /* const numBars = 8;
-  // xz
-  for (let dx = 1; dx < size.x/w*numBars; dx++) {
-    for (let dz = 1; dz < size.z/w*numBars; dz++) {
-      const g = boxGeometry.clone()
-        .applyMatrix4(new THREE.Matrix4().makeScale(0.01, w, 0.01))
-        .applyMatrix4(new THREE.Matrix4().makeTranslation(center.x - w/2 + dx/numBars * w, center.y + w/2, center.z - w/2 + dz/numBars * w));
-      g.setAttribute('particle', new THREE.BufferAttribute(new Float32Array(boxGeometry.attributes.position.array.length/3), 1));
-      g.setAttribute('bar', new THREE.BufferAttribute(new Float32Array(boxGeometry.attributes.position.array.length/3).fill(1), 1));
-      geometries.push(g);
-    }
-  }
-  // xy
-  for (let dx = 1; dx < size.x/w*numBars; dx++) {
-    for (let dy = 1; dy < size.y/w*numBars; dy++) {
-      const g = boxGeometry.clone()
-        .applyMatrix4(new THREE.Matrix4().makeScale(0.01, 0.01, w))
-        .applyMatrix4(new THREE.Matrix4().makeTranslation(center.x - w/2 + dx/numBars * w, center.y + dy/numBars * w, center.z));
-      g.setAttribute('particle', new THREE.BufferAttribute(new Float32Array(boxGeometry.attributes.position.array.length/3), 1));
-      g.setAttribute('bar', new THREE.BufferAttribute(new Float32Array(boxGeometry.attributes.position.array.length/3).fill(1), 1));
-      geometries.push(g);
-    }
-  }
-  // yz
-  for (let dy = 1; dy < size.x/w*numBars; dy++) {
-    for (let dz = 1; dz < size.z/w*numBars; dz++) {
-      const g = boxGeometry.clone()
-        .applyMatrix4(new THREE.Matrix4().makeScale(w, 0.01, 0.01))
-        .applyMatrix4(new THREE.Matrix4().makeTranslation(center.x, center.y + dy/numBars * w, center.z - w/2 + dz/numBars * w));
-      g.setAttribute('particle', new THREE.BufferAttribute(new Float32Array(boxGeometry.attributes.position.array.length/3), 1));
-      g.setAttribute('bar', new THREE.BufferAttribute(new Float32Array(boxGeometry.attributes.position.array.length/3).fill(1), 1));
-      geometries.push(g);
-    }
-  } */
 
   for (let i = 0; i < 20; i++) {
     const width = 0.02;
@@ -412,16 +296,6 @@ const makePortalMesh = json => {
   
   const o = new THREE.Object3D();
   o.add(portalMesh);
-  // o.contentId = contentId;
-  // o.json = json;
-  // o.isPortal = true;
-  /* o.hit = () => {
-    console.log('hit', o); // XXX
-    return {
-      hit: false,
-      died: false,
-    };
-  }; */
 
   o.update = () => {
     const {position} = useLocalPlayer();
@@ -432,8 +306,9 @@ const makePortalMesh = json => {
       .applyMatrix4(portalMesh.matrixWorld)
       .distanceToPoint(position);
     portalMesh.material.uniforms.uUserPosition.value.copy(position);
+    portalMesh.updateMatrixWorld();
   };
-  
+  o.updateMatrixWorld();
   return o;
 };
 
@@ -495,44 +370,11 @@ export default () => {
           box.min.clone().sub(center),
           box.max.clone().sub(center)
         );
-        
-        /* const popoverWidth = 600;
-        const popoverHeight = 200;
-        const popoverTextMesh = (() => {
-          const textMesh = ui.makeTextMesh(name + '\n[E] to enter', undefined, 0.5, 'center', 'middle');
-          textMesh.position.z = 0.1;
-          textMesh.scale.x = popoverHeight / popoverWidth;
-          textMesh.color = 0xFFFFFF;
-          return textMesh;
-        })();
-        const popoverTarget = new THREE.Object3D();
-        popoverTarget.position.copy(center)
-          .add(new THREE.Vector3(0, 0.5, 0));
-        const popoverMesh = ui.makePopoverMesh(popoverTextMesh, {
-          width: popoverWidth,
-          height: popoverHeight,
-          target: popoverTarget,
-        }); */
 
-        /* const o = {
-          contentId: id || `https://webaverse.github.io/parcels/parcel.scn`,
-          room: name.replace(/ /g, '-'),
-          rarity,
-          extents,
-        };
-        const s = JSON.stringify(o);
-        const b = new Blob([s], {
-          type: 'application/json',
-        });
-        const parcelUrl = URL.createObjectURL(b) + '/parcel.url'; */
         const portalMesh = makePortalMesh(land);
+        portalMesh.updateMatrixWorld();
         object.add(portalMesh);
-        // const bakeUrl = u && `https://bake.exokit.org/model.glb?u=${u}&e=${JSON.stringify([centerBox.min.toArray(), centerBox.max.toArray()])}`;
 
-        /* await Promise.all([
-          world.addStaticObject(parcelUrl, null, new THREE.Vector3(), new THREE.Quaternion()),
-          // bakeUrl ? world.addStaticObject(bakeUrl, null, new THREE.Vector3(center.x, box.min.y, center.z), new THREE.Quaternion()) : Promise.resolve(),
-        ]); */
       })();
     }
   })();
